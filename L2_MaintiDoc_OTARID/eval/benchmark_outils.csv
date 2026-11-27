@@ -1,0 +1,5 @@
+composant,option,qualite,temps_secondes,memoire_mo,licence,statut,decision
+OCR,Tesseract,,0,,,unavailable,non mesure dans environnement actuel
+OCR,PaddleOCR,,0,,,unavailable,non mesure dans environnement actuel
+Encodeur texte-image,openai/clip-vit-base-patch32,,0,,,unavailable,non mesure dans environnement actuel
+Encodeur texte-image,geolocal/clip-small,,0,,,unavailable,non mesure dans environnement actuel

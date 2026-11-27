@@ -1,0 +1,6 @@
+source_id,titre,auteur_ou_organisation,type,date_publication,url,themes,consulte_le,verifie_par
+S1,Filtering,Qdrant,documentation,2026-11,https://qdrant.tech/documentation/search/filtering/,metadonnees ; controle_acces,2026-11-27,OTARID
+S2,Payload,Qdrant,documentation,2026-11,https://qdrant.tech/documentation/manage-data/payload/,metadonnees ; indexation,2026-11-27,OTARID
+S3,BGE M3-Embedding: Multi-Lingual Multi-Functionality Multi-Granularity Text Embeddings Through Self-Knowledge Distillation,Chen Xiao Zhang et al.,article scientifique,2024-02,https://arxiv.org/abs/2402.03216,embeddings ; evaluation,2026-11-27,OTARID
+S4,Learning Transferable Visual Models From Natural Language Supervision,Radford Kim Hallacy et al.,article scientifique,2021-07,https://proceedings.mlr.press/v139/radford21a.html,recherche_multimodale ; embeddings,2026-11-27,OTARID
+S5,Text recipes,Artifex Software,documentation,2026-11,https://pymupdf.readthedocs.io/en/latest/recipes-text.html,extraction ; qualite_donnees,2026-11-27,OTARID

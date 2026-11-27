@@ -1,0 +1,21 @@
+question_id,question,photo,utilisateur,elements_attendus,type_question
+Q01,Quelle huile et quel couple pour la procédure révisée AEROCOMP ?,,tech_compresseurs,C18 p.1,textuelle
+Q02,Quel code correspond à une surchauffe du compresseur ?, ,tech_compresseurs,C15 p.1,textuelle
+Q03,Comment traiter le code A-102 de surchauffe ?, ,tech_compresseurs,C20 p.1,textuelle
+Q04,Quel est le couple de serrage des vis M10 de la soupape ?, ,tech_compresseurs,C14 p.1,textuelle
+Q05,Quelles sont les étapes de consignation d'un compresseur ?, ,tech_compresseurs,C11 p.2,textuelle
+Q06,Quelle valeur de temporisation est retenue pour l'alarme SSI révisée ?, ,tech_incendie,F18 p.1,contradictoire
+Q07,Que signifie le défaut DEF-04 ?, ,tech_incendie,F15 p.1,textuelle
+Q08,Comment localiser une fuite à la terre ?, ,tech_incendie,F20 p.1,textuelle
+Q09,Quelle autonomie est prévue pour IGNIS-PRO-800 ?, ,tech_incendie,F13 p.1,textuelle
+Q10,Comment acquitter et réinitialiser une alarme ?, ,tech_incendie,F07 p.2,textuelle
+Q11,Quel document traite du panneau avec manomètres ?,../L1_MaintiDoc_OTARID_Corpus/images/C12.jpg,tech_compresseurs,C12 p.1,photo
+Q12,Quelle image montre un écran LCD de centrale incendie ?,../L1_MaintiDoc_OTARID_Corpus/images/F12.jpg,tech_incendie,F12 p.1,photo
+Q13,Quelle figure concerne le câblage d'une boucle adressable ?,../L1_MaintiDoc_OTARID_Corpus/images/F12.jpg,tech_incendie,F09 p.1,photo
+Q14,Quelle figure concerne le circuit pneumatique et huile ?,../L1_MaintiDoc_OTARID_Corpus/images/C12.jpg,tech_compresseurs,C10 p.1,photo
+Q15,Quel schéma représente la chaîne de sécurité électrique ?,../L1_MaintiDoc_OTARID_Corpus/images/C12.jpg,tech_compresseurs,C09 p.1,photo
+Q16,Quelle est la différence entre C17 et C18 ?, ,tech_compresseurs,C17 p.1;C18 p.1,contradictoire
+Q17,Quelle est la différence entre F17 et F18 ?, ,tech_incendie,F17 p.1;F18 p.1,contradictoire
+Q18,Comment purger le séparateur du compresseur B ?, ,tech_compresseurs,aucun,acces
+Q19,Quel historique d'intervention est disponible ?, ,tech_compresseurs,aucun,acces
+Q20,Quelle procédure concerne les détecteurs incendie en mode Walk-Test ?, ,tech_incendie,F06 p.3,textuelle

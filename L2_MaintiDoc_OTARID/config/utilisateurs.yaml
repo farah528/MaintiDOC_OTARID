@@ -1,0 +1,7 @@
+users:
+  tech_compresseurs:
+    groups: [techniciens_compresseurs]
+  tech_incendie:
+    groups: [techniciens_incendie]
+  responsable:
+    groups: [responsables_maintenance]
