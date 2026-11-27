@@ -1,0 +1,24 @@
+flowchart TD
+    DocIn["Documents Sources du Corpus<br/>(PDF Textuels, PDF Scannés, Photographies)"] --> TypeCheck{"Type de Fichier & Format ?"}
+    
+    TypeCheck -->|"PDF Scanné / Image"| OCRProc["OCR Local (Tesseract / PaddleOCR)<br/>- Détection zones de texte<br/>- Extraction bboxes & confiance"]
+    TypeCheck -->|"PDF Textuel Natif"| PyMu["PyMuPDF (fitz)<br/>- Extraction flux texte natif<br/>- Extraction figures & tableaux"]
+    
+    OCRProc --> Normal["Normalisation du Contenu Textuel"]
+    PyMu --> Normal
+    PyMu --> VisualExt["Extraction des Éléments Visuels<br/>(Schémas, Tableaux, Diagrammes)"]
+
+    Normal --> Chunking["Découpage Sémantique (Chunking)<br/>- Passages de 300 à 500 tokens<br/>- Chevauchement de 50 tokens"]
+    
+    Chunking --> BGEEmb["Génération Embeddings Textuels<br/>- Modèle BGE-M3 (Dense 1024-dim + Sparse Lexical)"]
+    VisualExt --> CLIPEmb["Génération Embeddings Visuels<br/>- Encodeur CLIP Multilingue (512-dim)"]
+
+    Chunking --> MetaAssign["Attribution des Métadonnées Enrichies<br/>- document_id, version, page, element_id<br/>- equipement_id, famille_equipement<br/>- groupe_acces, hash_sha256"]
+    VisualExt --> MetaAssign
+
+    BGEEmb --> QdrantIndex[("Indexation Qdrant<br/>Collection Textuelle")]
+    CLIPEmb --> QdrantIndexVis[("Indexation Qdrant<br/>Collection Visuelle")]
+    MetaAssign --> QdrantIndex
+    MetaAssign --> QdrantIndexVis
+    MetaAssign --> PostgresIndex[("PostgreSQL<br/>Métadonnées & Registre")]
+    DocIn --> MinIOStore[("MinIO Object Storage<br/>Stockage Fichiers Bruts")]

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="1000" height="650">
+  <defs>
+    <style>
+      .title { font-family: 'Segoe UI', Arial; font-size: 18px; font-weight: bold; fill: #b71c1c; }
+      .subtitle { font-family: 'Segoe UI', Arial; font-size: 12px; fill: #546e7a; }
+      .label { font-family: 'Segoe UI', Arial; font-size: 11px; fill: #263238; font-weight: bold; }
+      .desc { font-family: 'Segoe UI', Arial; font-size: 10px; fill: #455a64; }
+      .loop-out { stroke: #d32f2f; stroke-width: 3; fill: none; }
+      .loop-in { stroke: #c2185b; stroke-width: 3; stroke-dasharray: 6,3; fill: none; }
+      .panel { fill: #fbe9e7; stroke: #b71c1c; stroke-width: 2.5; }
+      .device { fill: #ffffff; stroke: #c62828; stroke-width: 1.5; }
+      .isolator { fill: #fff8e1; stroke: #f57f17; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect width="1000" height="650" fill="#ffffff" stroke="#cfd8dc" stroke-width="2"/>
+  <rect x="15" y="15" width="970" height="620" fill="none" stroke="#90a4ae" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Header -->
+  <rect x="30" y="30" width="940" height="60" fill="#fff5f5" stroke="#ffcdd2" stroke-width="1"/>
+  <text x="50" y="55" class="title">SCHÉMA DE RACCORDEMENT BOUCLE ADRESSABLE — CENTRALE INCENDIE (REF: F09)</text>
+  <text x="50" y="75" class="subtitle">Architecture Rebouclée Classe A / Style 7 avec Isolateurs de Court-Circuit Intégrés (Norme NF S 61-970 &amp; EN 54-2)</text>
+
+  <!-- Centrale Incendie ECS/CMSI à gauche -->
+  <rect x="50" y="130" width="180" height="420" rx="10" class="panel"/>
+  <text x="70" y="165" class="title" font-size="15">CENTRALE ECS</text>
+  <text x="70" y="185" class="desc" font-weight="bold">Équipement de Contrôle<br/>et de Signalisation</text>
+  
+  <!-- Borniers Départ / Retour Boucle -->
+  <rect x="160" y="220" width="60" height="40" fill="#ffffff" stroke="#b71c1c" stroke-width="1.5"/>
+  <text x="165" y="240" font-size="10" font-weight="bold" fill="#b71c1c">DÉPART</text>
+  <text x="165" y="253" font-size="9" class="desc">L1+ / L1-</text>
+
+  <rect x="160" y="440" width="60" height="40" fill="#ffffff" stroke="#b71c1c" stroke-width="1.5"/>
+  <text x="165" y="460" font-size="10" font-weight="bold" fill="#b71c1c">RETOUR</text>
+  <text x="165" y="473" font-size="9" class="desc">L1+ / L1-</text>
+
+  <text x="70" y="320" class="label">Alimentation 24V CC</text>
+  <text x="70" y="340" class="desc">Batteries de secours</text>
+  <text x="70" y="360" class="desc">Autonomie 72h + 30m</text>
+
+  <!-- Ligne Départ Boucle -->
+  <line x1="220" y1="240" x2="300" y2="240" class="loop-out"/>
+  
+  <!-- Isolateur 1 (ISO-01) -->
+  <rect x="300" y="220" width="45" height="40" rx="4" class="isolator"/>
+  <text x="306" y="245" font-size="10" font-weight="bold" fill="#f57f17">ISO 1</text>
+  <line x1="345" y1="240" x2="400" y2="240" class="loop-out"/>
+
+  <!-- Périphérique 1: Détecteur Optique de Fumée (D01) -->
+  <circle cx="430" cy="240" r="25" class="device"/>
+  <text x="415" y="242" class="label">DA-01</text>
+  <text x="412" y="255" font-size="8" class="desc">Optique</text>
+  <text x="400" y="200" class="desc">Zone 1 : Hall Accueil</text>
+  <line x1="455" y1="240" x2="520" y2="240" class="loop-out"/>
+
+  <!-- Périphérique 2: Détecteur Thermovélocimétrique (D02) -->
+  <circle cx="550" cy="240" r="25" class="device"/>
+  <text x="535" y="242" class="label">DT-02</text>
+  <text x="535" y="255" font-size="8" class="desc">Thermique</text>
+  <text x="520" y="200" class="desc">Zone 2 : Chaufferie</text>
+  <line x1="575" y1="240" x2="640" y2="240" class="loop-out"/>
+
+  <!-- Périphérique 3: Déclencheur Manuel DM-01 -->
+  <rect x="640" y="218" width="44" height="44" rx="4" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+  <text x="646" y="242" font-size="10" font-weight="bold" fill="#b71c1c">DM 1</text>
+  <text x="646" y="255" font-size="8" class="desc">Manuel</text>
+  <text x="630" y="200" class="desc">Issue de Secours</text>
+  <line x1="684" y1="240" x2="760" y2="240" class="loop-out"/>
+
+  <!-- Isolateur 2 (ISO-02) -->
+  <rect x="760" y="220" width="45" height="40" rx="4" class="isolator"/>
+  <text x="766" y="245" font-size="10" font-weight="bold" fill="#f57f17">ISO 2</text>
+  <line x1="805" y1="240" x2="880" y2="240" class="loop-out"/>
+
+  <!-- Courbe de retour de boucle (Descente vers bas) -->
+  <line x1="880" y1="240" x2="880" y2="460" class="loop-in"/>
+  <text x="895" y="350" font-size="11" font-weight="bold" fill="#c2185b" transform="rotate(90,895,350)">Câble Résistant au Feu CR1 (2x1.5 mm² blindé)</text>
+
+  <!-- Périphérique 4: Détecteur Optique Fumée (D03) -->
+  <line x1="880" y1="460" x2="800" y2="460" class="loop-in"/>
+  <circle cx="775" cy="460" r="25" class="device"/>
+  <text x="760" y="462" class="label">DA-03</text>
+  <text x="758" y="475" font-size="8" class="desc">Optique</text>
+  <text x="745" y="505" class="desc">Zone 3 : Bureau R&amp;D</text>
+
+  <!-- Périphérique 5: Module d'Entrée/Sortie (Asservissement DAS Clapets) -->
+  <line x1="750" y1="460" x2="680" y2="460" class="loop-in"/>
+  <rect x="635" y="438" width="45" height="44" rx="4" fill="#e8eaf6" stroke="#283593" stroke-width="1.5"/>
+  <text x="640" y="462" font-size="10" font-weight="bold" fill="#283593">M-ES</text>
+  <text x="638" y="475" font-size="8" class="desc">Relais</text>
+  <text x="615" y="505" class="desc">Asservissement DAS</text>
+
+  <!-- Périphérique 6: Diffuseur Sonore Adressable (DS-01) -->
+  <line x1="635" y1="460" x2="560" y2="460" class="loop-in"/>
+  <polygon points="535,440 560,460 535,480" fill="#fff9c4" stroke="#fbc02d" stroke-width="1.5"/>
+  <rect x="515" y="445" width="20" height="30" fill="#fff9c4" stroke="#fbc02d" stroke-width="1.5"/>
+  <text x="510" y="505" class="desc">Sirène 90 dB (DS-01)</text>
+
+  <!-- Isolateur 3 (ISO-03) -->
+  <line x1="515" y1="460" x2="440" y2="460" class="loop-in"/>
+  <rect x="395" y="440" width="45" height="40" rx="4" class="isolator"/>
+  <text x="401" y="465" font-size="10" font-weight="bold" fill="#f57f17">ISO 3</text>
+
+  <!-- Retour final à la centrale -->
+  <line x1="395" y1="460" x2="220" y2="460" class="loop-in"/>
+
+  <!-- Explication de la tolérance aux pannes Style 7 -->
+  <rect x="260" y="300" width="400" height="85" fill="#f9fbe7" stroke="#c0ca33" stroke-width="1"/>
+  <text x="275" y="320" font-weight="bold" font-size="11" fill="#827717">Avantage de la boucle rebouclée fermée (Classe A / Style 7) :</text>
+  <text x="275" y="340" font-size="10" fill="#33691e">• En cas de coupure unique : la centrale alimente les deux côtés (départ et retour).</text>
+  <text x="275" y="355" font-size="10" fill="#33691e">• En cas de court-circuit : les isolateurs encadrants s'ouvrent immédiatement,</text>
+  <text x="275" y="370" font-size="10" fill="#33691e">  isolant le tronçon défaillant sans perte d'aucun autre point du bâtiment.</text>
+
+  <text x="50" y="615" font-family="Segoe UI" font-size="11" fill="#78909c">Projet MAINTiDOC — Assistant Documentaire Multimodal — Document F09 Schéma Boucle Rebouclée NF S 61-970</text>
+</svg>

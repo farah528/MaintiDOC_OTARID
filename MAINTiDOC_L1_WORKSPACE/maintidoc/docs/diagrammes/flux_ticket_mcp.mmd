@@ -1,0 +1,23 @@
+flowchart TD
+    Demand["Technicien / Assistant : Détection d'un incident justifiant un ticket"] --> HistCheck["LangGraph : Appel MCP get_equipment_history(equipement_id)"]
+    HistCheck --> HistResp["Serveur MCP : Retour des 5 dernières interventions & tickets ouverts"]
+    
+    HistResp --> DraftPrep["Génération Brouillon de Ticket (Pydantic TicketDraft)<br/>- Équipement concerné (ex: COMP-B-02)<br/>- Titre, Gravité & Description détaillée de l'incident<br/>- Citations documentaires justificatives (manuel, page)<br/>- Recommandations techniques"]
+
+    DraftPrep --> Checkpoint["[POINT DE CONTRÔLE : Interruption Humaine LangGraph]<br/>Affichage du Brouillon dans l'interface Streamlit"]
+    
+    Checkpoint --> UserDecision{"Validation Humaine par le Technicien"}
+    UserDecision -->|"Refus / Annulation"| CancelTicket["Workflow Interrompu : Aucun ticket créé"]
+    UserDecision -->|"Modification souhaitée"| EditDraft["Édition manuelle des champs du ticket"]
+    EditDraft --> Checkpoint
+    UserDecision -->|"Approbation Explicite"| TokenGen["Génération Token d'Approbation Cryptographique<br/>+ Clé d'Idempotence sha256(user+equip+timestamp)"]
+
+    TokenGen --> MCPCall["Client MCP : create_ticket(approval_token, idempotency_key, ticket_data)"]
+    
+    MCPCall --> ServerCheck{"Serveur MCP : Contrôle du Token et de l'Idempotence"}
+    ServerCheck -->|"Token Invalide / Absent"| Reject["Rejet Strict 403 : Action Non Autorisée"]
+    ServerCheck -->|"Déjà Traité (Idempotence)"| ReturnExisting["Retour du Ticket existant sans doublon"]
+    ServerCheck -->|"Valide & Inédit"| InsertDB["Insertion Ticket dans la Base de Maintenance"]
+
+    InsertDB --> SuccessNotif["Confirmation Succès : Numéro Ticket généré (TICK-2026-XXXX)<br/>Affichage sur l'interface technicien"]
+    ReturnExisting --> SuccessNotif

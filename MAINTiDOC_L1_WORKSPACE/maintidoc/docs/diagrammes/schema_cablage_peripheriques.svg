@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="1000" height="650">
+  <defs>
+    <style>
+      .title { font-family: 'Segoe UI', Arial; font-size: 18px; font-weight: bold; fill: #b71c1c; }
+      .subtitle { font-family: 'Segoe UI', Arial; font-size: 12px; fill: #546e7a; }
+      .label { font-family: 'Segoe UI', Arial; font-size: 11px; fill: #263238; font-weight: bold; }
+      .desc { font-family: 'Segoe UI', Arial; font-size: 10px; fill: #455a64; }
+      .wire-pwr { stroke: #d32f2f; stroke-width: 2.5; fill: none; }
+      .wire-gnd { stroke: #263238; stroke-width: 2.5; fill: none; }
+      .wire-sig { stroke: #1976d2; stroke-width: 2; fill: none; }
+      .wire-relay { stroke: #388e3c; stroke-width: 2; stroke-dasharray: 4,3; fill: none; }
+      .box { fill: #ffffff; stroke: #455a64; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <rect width="1000" height="650" fill="#ffffff" stroke="#cfd8dc" stroke-width="2"/>
+  <rect x="15" y="15" width="970" height="620" fill="none" stroke="#90a4ae" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Header -->
+  <rect x="30" y="30" width="940" height="60" fill="#fff5f5" stroke="#ffcdd2" stroke-width="1"/>
+  <text x="50" y="55" class="title">SCHÉMA DE CÂBLAGE DES PÉRIPHÉRIQUES ET ASSERVISSEMENTS — CMSI (REF: F10)</text>
+  <text x="50" y="75" class="subtitle">Raccordement Relais d'Alarme, Lignes Diffuseurs Sonores/Flashs Évacuation et Lignes DAS (Clapets Coupe-Feu / Désenfumage)</text>
+
+  <!-- Bloc Central ECS/CMSI -->
+  <rect x="60" y="120" width="240" height="460" rx="8" fill="#fbe9e7" stroke="#b71c1c" stroke-width="2"/>
+  <text x="80" y="155" class="title" font-size="16">BORNIERS CMSI</text>
+  <text x="80" y="175" class="desc" font-weight="bold">Système de Mise en Sécurité Incendie</text>
+
+  <!-- Bornier 1: Sortie Ligne Sirènes (SND1) -->
+  <rect x="200" y="210" width="80" height="50" class="box"/>
+  <text x="210" y="230" font-size="10" font-weight="bold" fill="#d32f2f">SND 1 (+ / -)</text>
+  <text x="210" y="245" font-size="9" class="desc">24V / Ligne surveillée</text>
+
+  <!-- Bornier 2: Sortie Contact Sec Alarme Feu Général (RL1) -->
+  <rect x="200" y="290" width="80" height="50" class="box"/>
+  <text x="210" y="310" font-size="10" font-weight="bold" fill="#388e3c">RELAIS FEU</text>
+  <text x="210" y="325" font-size="9" class="desc">C / NO / NC (2A)</text>
+
+  <!-- Bornier 3: Sortie Contact Sec Dérangement / Défaut (RL2) -->
+  <rect x="200" y="370" width="80" height="50" class="box"/>
+  <text x="210" y="390" font-size="10" font-weight="bold" fill="#f57f17">RELAIS DÉFAUT</text>
+  <text x="210" y="405" font-size="9" class="desc">C / NO / NC (Failsafe)</text>
+
+  <!-- Bornier 4: Ligne Télécommande DAS Clapets Coupe-feu -->
+  <rect x="200" y="450" width="80" height="50" class="box"/>
+  <text x="210" y="470" font-size="10" font-weight="bold" fill="#1976d2">DAS LIGNE 1</text>
+  <text x="210" y="485" font-size="9" class="desc">Émission de courant (24V)</text>
+
+  <!-- Connexions Ligne Sirène -->
+  <line x1="280" y1="225" x2="420" y2="225" class="wire-pwr"/>
+  <line x1="280" y1="245" x2="420" y2="245" class="wire-gnd"/>
+
+  <!-- Sirène 1 -->
+  <rect x="420" y="210" width="70" height="50" rx="4" fill="#fff9c4" stroke="#fbc02d" stroke-width="1.5"/>
+  <text x="430" y="235" class="label">SIRÈNE 1</text>
+  <text x="430" y="250" font-size="9" class="desc">NFS 32-001</text>
+
+  <line x1="490" y1="225" x2="590" y2="225" class="wire-pwr"/>
+  <line x1="490" y1="245" x2="590" y2="245" class="wire-gnd"/>
+
+  <!-- Diffuseur Lumineux Flash 2 -->
+  <rect x="590" y="210" width="70" height="50" rx="4" fill="#e1f5fe" stroke="#0288d1" stroke-width="1.5"/>
+  <text x="600" y="235" class="label">FLASH 2</text>
+  <text x="600" y="250" font-size="9" class="desc">EN 54-23</text>
+
+  <line x1="660" y1="225" x2="760" y2="225" class="wire-pwr"/>
+  <line x1="660" y1="245" x2="760" y2="245" class="wire-gnd"/>
+
+  <!-- Résistance de Fin de Ligne (EOL) -->
+  <rect x="760" y="220" width="50" height="30" fill="#efebe9" stroke="#5d4037" stroke-width="1.5"/>
+  <text x="767" y="240" font-size="9" font-weight="bold">R_EOL</text>
+  <line x1="760" y1="225" x2="760" y2="245" stroke="#5d4037" stroke-width="2"/>
+  <text x="825" y="238" class="desc">R = 4.7 kΩ (Surveillance boucle ouverte/court-circuit)</text>
+
+  <!-- Connexions Relais Feu -> Transmetteur Téléphonique / GTC -->
+  <line x1="280" y1="315" x2="450" y2="315" class="wire-relay"/>
+  <rect x="450" y="295" width="160" height="45" rx="5" fill="#f1f8e9" stroke="#33691e" stroke-width="1.5"/>
+  <text x="460" y="315" class="label">TRANSMETTEUR D'ALARME</text>
+  <text x="460" y="330" font-size="9" class="desc">Renvoi PC Sécurité / Télésurveillance</text>
+
+  <!-- Connexions Relais Défaut -> Supervision Technique GTB -->
+  <line x1="280" y1="395" x2="450" y2="395" class="wire-relay"/>
+  <rect x="450" y="375" width="160" height="45" rx="5" fill="#fffde7" stroke="#f57f17" stroke-width="1.5"/>
+  <text x="460" y="395" class="label">SUPERVISION GTC / GTB</text>
+  <text x="460" y="410" font-size="9" class="desc">Report Défaut Technique / Batterie</text>
+
+  <!-- Connexions Ligne DAS Clapets Coupe-Feu -->
+  <line x1="280" y1="475" x2="450" y2="475" class="wire-sig"/>
+  <rect x="450" y="455" width="130" height="45" rx="5" fill="#ede7f6" stroke="#512da8" stroke-width="1.5"/>
+  <text x="460" y="475" class="label">DÉCLENCHEUR DAS</text>
+  <text x="460" y="490" font-size="9" class="desc">Ventouse électromagnétique</text>
+
+  <line x1="580" y1="475" x2="650" y2="475" class="wire-sig"/>
+  <rect x="650" y="455" width="140" height="45" rx="5" fill="#fce4ec" stroke="#c2185b" stroke-width="1.5"/>
+  <text x="660" y="475" class="label">CLAPET COUPE-FEU</text>
+  <text x="660" y="490" font-size="9" class="desc">Fermeture étanchéité gaine</text>
+
+  <!-- Contact de position clapet (FDC) -->
+  <line x1="790" y1="475" x2="850" y2="475" stroke="#7b1fa2" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="850" y="460" width="70" height="30" class="box"/>
+  <text x="855" y="480" font-size="9" class="label">FDC Clapet</text>
+  <text x="830" y="515" class="desc">Retour position d'attente / sécurité</text>
+
+  <text x="50" y="615" font-family="Segoe UI" font-size="11" fill="#78909c">Projet MAINTiDOC — Assistant Documentaire Multimodal — Document F10 Schéma Câblage Périphériques NF S 61-932</text>
+</svg>

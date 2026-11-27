@@ -1,0 +1,24 @@
+flowchart TD
+    UserQ["Technicien : Question Textuelle + Photo optionnelle"] --> API["FastAPI : Authentification JWT"]
+    API --> CheckPerm["Résolution des Droits Utilisateur<br/>- Récupération user_groups (ex: techniciens_compresseurs)"]
+    
+    CheckPerm --> ImgCheck{"Image fournie dans la requête ?"}
+    ImgCheck -->|"Oui"| VLMPre["Analyse Visuelle VLM (Qwen2.5-VL)<br/>- Identification visuelle équipement<br/>- Détection codes voyants / afficheur"]
+    ImgCheck -->|"Non"| QueryPrep["Formulation de la Requête de Recherche"]
+    VLMPre --> QueryPrep
+
+    QueryPrep --> SearchExec["Recherche Multimodale Hybride dans Qdrant<br/>[POINT DE CONTRÔLE 1 : Filtre strict groupe_acces]"]
+    SearchExec --> RetText["Recherche Dense + Lexicale (BGE-M3)"]
+    SearchExec --> RetVis["Recherche Visuelle (CLIP)"]
+    
+    RetText --> RRF["Fusion Reciprocal Rank Fusion (RRF)"]
+    RetVis --> RRF
+    RRF --> CrossRank["Reclassement Reranker Cross-Encoder BGE<br/>(Top-5 passages & figures retenus)"]
+
+    CrossRank --> CheckSuff{"Preuves documentaires<br/>suffisantes et concordantes ?"}
+    CheckSuff -->|"Ambiguïté / Absence / Contradiction"| Clarif["Génération Demande de Clarification<br/>(status: needs_clarification)"]
+    CheckSuff -->|"Preuves Solides"| GenVLM["Génération de Réponse Sourcée (VLM)<br/>Format Pydantic JSON validé"]
+
+    GenVLM --> CiteVerify["[POINT DE CONTRÔLE 2 : Vérification Citations]<br/>- Existence effective des pages/figures<br/>- Support sémantique de l'affirmation"]
+    CiteVerify --> ResponseOut["Restitution Réponse Sourcée à l'Utilisateur<br/>(Citations exactes document, page, figure)"]
+    Clarif --> ResponseOut

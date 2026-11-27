@@ -1,0 +1,64 @@
+flowchart TB
+    subgraph UI ["Interface Utilisateur"]
+        direction TB
+        Streamlit["Application Web Streamlit<br/>- Formulaire Question & Photo<br/>- Visualisation Citations & Sources<br/>- Approbation Explicite de Ticket"]
+    end
+
+    subgraph Gateway ["Passerelle API & Sécurité"]
+        FastAPI["API FastAPI<br/>- Authentification JWT & RBAC<br/>- Validation Schémas Pydantic<br/>- Quotas & Rate Limiting (60s)"]
+    end
+
+    subgraph Orchestration ["Orchestration Agentique (LangGraph)"]
+        LG["Moteur de Workflow LangGraph<br/>- Gestionnaire d'État & Transitions<br/>- Plafond de Boucle (max 6 itérations)<br/>- Point d'Interruption Humaine (Human-in-the-Loop)"]
+    end
+
+    subgraph RAG ["Sous-système RAG Multimodal (LangChain)"]
+        direction TB
+        subgraph Ret ["Recherche Documentaire Hybride"]
+            BGE["Recherche Dense & Sparse (BGE-M3)"]
+            CLIP["Recherche Visuelle (CLIP Multilingue)"]
+            RRF["Fusion RRF (Reciprocal Rank Fusion)"]
+        end
+        Reranker["Reranker BGE Cross-Encoder<br/>(Fine-tuné Semaine 5)"]
+        Filter["Contrôle d'Accès Pré-filtrage<br/>(Filtrage strict par groupe_acces)"]
+        CiteCheck["Module de Vérification des Citations<br/>(Fact-Checking & Validation des Sources)"]
+    end
+
+    subgraph VLM ["Modèle Vision-Langage"]
+        Qwen["Qwen2.5-VL-7B-Instruct<br/>(Inférence Transformers / vLLM, GPU 24 Go)"]
+    end
+
+    subgraph MCP ["Écosystème MCP Maintenance"]
+        MCPClient["Client MCP LangChain"]
+        MCPServer["Serveur MCP Maintenance (Démonstration)<br/>- get_equipment_history()<br/>- get_open_tickets()<br/>- create_ticket(approval_token, idempotency_key)"]
+    end
+
+    subgraph Stockage ["Infrastructures de Données"]
+        Qdrant[("Base Vectorielle Qdrant<br/>- Index Passages Textuels<br/>- Index Éléments Visuels")]
+        Postgres[("Base PostgreSQL<br/>- Métadonnées Inventaire & RBAC<br/>- Journaux d'Audit & Historique")]
+        MinIO[("Stockage Objet MinIO<br/>- Documents PDF Originaux<br/>- Images Haute Résolution")]
+    end
+
+    subgraph Ops ["Observabilité & Déploiement"]
+        MLflow["MLflow Tracking & Logging"]
+        Docker["Déploiement Docker Compose"]
+    end
+
+    Streamlit <-->|"Requêtes HTTPS / Websockets"| FastAPI
+    FastAPI <-->|"State & Context"| LG
+    LG <-->|"Filtrage & Requête Hybride"| Ret
+    Filter -.->|"Application RBAC"| Ret
+    BGE <-->|"Recherche Vectorielle"| Qdrant
+    CLIP <-->|"Recherche Visuelle"| Qdrant
+    Ret -->|"Top-20 Candidats"| RRF
+    RRF -->|"Fusion"| Reranker
+    Reranker -->|"Top-5 Passages & Figures"| LG
+    LG <-->|"Prompt Contexte + Image"| Qwen
+    Qwen -->|"Réponse Brute JSON"| CiteCheck
+    CiteCheck -->|"Vérification Factuelle"| LG
+    LG <-->|"Historique & Brouillon Ticket"| MCPClient
+    MCPClient <-->|"Protocole Standard MCP"| MCPServer
+    MCPServer <-->|"Données Tickets"| Postgres
+    FastAPI -.->|"Fichiers & Images"| MinIO
+    FastAPI -.->|"Métadonnées & Utilisateurs"| Postgres
+    LG -.->|"Métriques & Traces"| MLflow

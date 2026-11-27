@@ -1,0 +1,38 @@
+flowchart TD
+    subgraph Users ["Utilisateurs & Profils Déclarés"]
+        TechC["Technicien Compresseurs<br/>(Groupe: techniciens_compresseurs)"]
+        TechI["Technicien Incendie<br/>(Groupe: techniciens_incendie)"]
+        RespM["Responsable Maintenance<br/>(Groupe: responsables_maintenance)"]
+    end
+
+    subgraph SecurityLayer ["Couche de Contrôle d'Accès (API & RAG)"]
+        JWTEval["Contrôleur JWT & Décodeur de Rôles"]
+        QdrantFilter["Filtre Pré-Recherche Qdrant<br/>Filter.must: groupe_acces IN user.groups"]
+        Sanitize["Barrière Anti-Injection (Prompt Shield)<br/>Documents traités comme données passives"]
+    end
+
+    subgraph CorpusSplits ["Cloisonnement du Corpus Documentaire"]
+        DocsComp["Famille 1 : Compresseurs d'Air Industriels<br/>(20 documents C01-C20)<br/>Accessible: techniciens_compresseurs, responsables"]
+        DocsInc["Famille 2 : Centrales Détection Incendie<br/>(20 documents F01-F20)<br/>Accessible: techniciens_incendie, responsables"]
+        DocsSensibles["Documents Restreints / Historiques Globaux<br/>(C16, F16, notes internes)<br/>Accessible: UNIQUEMENT responsables_maintenance"]
+    end
+
+    subgraph OutIsolation ["Isolation des Réponses & Outils MCP"]
+        RespFilter["Vérification Post-Génération : Zéro fuite de citation hors groupe"]
+        MCPAccess["Serveur MCP : Autorisation granulaire sur create_ticket & history"]
+    end
+
+    TechC --> JWTEval
+    TechI --> JWTEval
+    RespM --> JWTEval
+
+    JWTEval --> QdrantFilter
+    QdrantFilter --> DocsComp
+    QdrantFilter --> DocsInc
+    QdrantFilter --> DocsSensibles
+
+    Sanitize -.->|"Neutralisation tentatives injection (C19, F19)"| QdrantFilter
+    DocsComp --> RespFilter
+    DocsInc --> RespFilter
+    DocsSensibles --> RespFilter
+    RespFilter --> MCPAccess

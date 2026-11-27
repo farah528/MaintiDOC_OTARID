@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="1000" height="650">
+  <defs>
+    <style>
+      .title { font-family: 'Segoe UI', Arial; font-size: 18px; font-weight: bold; fill: #0d47a1; }
+      .subtitle { font-family: 'Segoe UI', Arial; font-size: 12px; fill: #546e7a; }
+      .label { font-family: 'Segoe UI', Arial; font-size: 11px; fill: #263238; }
+      .wire { stroke: #263238; stroke-width: 2; fill: none; }
+      .wire-neutral { stroke: #0288d1; stroke-width: 2; fill: none; }
+      .wire-safety { stroke: #d32f2f; stroke-width: 2; fill: none; }
+      .component { fill: #ffffff; stroke: #1565c0; stroke-width: 1.5; }
+      .relay { fill: #e3f2fd; stroke: #0d47a1; stroke-width: 1.5; }
+      .terminal { fill: #263238; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="650" fill="#ffffff" stroke="#cfd8dc" stroke-width="2"/>
+  <rect x="15" y="15" width="970" height="620" fill="none" stroke="#90a4ae" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Header block -->
+  <rect x="30" y="30" width="940" height="60" fill="#f5f7fa" stroke="#b0bec5" stroke-width="1"/>
+  <text x="50" y="55" class="title">SCHÉMA ÉLECTRIQUE DE COMMANDE — COMPRESSEUR INDUSTRIEL (REF: C09 / ELEC-COMP-VSD)</text>
+  <text x="50" y="75" class="subtitle">Circuit 230V AC Commande / Démarrage Étoile-Triangle &amp; Chaîne de Sécurité Intrinsèque (Arrêt d'Urgence, Pressostat, Klixon)</text>
+
+  <!-- Rails 230V & Neutre -->
+  <line x1="80" y1="130" x2="920" y2="130" stroke="#d32f2f" stroke-width="3"/>
+  <text x="890" y="120" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#d32f2f">L1 (230V AC)</text>
+
+  <line x1="80" y1="560" x2="920" y2="560" stroke="#0288d1" stroke-width="3"/>
+  <text x="890" y="580" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#0288d1">N (Neutre)</text>
+
+  <!-- Ligne 1: Chaîne de sécurité -->
+  <!-- Sectionneur Q1 -->
+  <line x1="120" y1="130" x2="120" y2="160" class="wire"/>
+  <rect x="105" y="160" width="30" height="30" class="component"/>
+  <text x="110" y="180" class="label">Q1</text>
+  <text x="145" y="180" class="label">Disjoncteur Q1 (4A)</text>
+  <line x1="120" y1="190" x2="120" y2="220" class="wire"/>
+
+  <!-- Arrêt d'urgence AU1 -->
+  <circle cx="120" cy="235" r="14" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+  <text x="113" y="240" font-family="Segoe UI" font-size="12" font-weight="bold" fill="#d32f2f">AU</text>
+  <text x="145" y="240" class="label">Arrêt d'Urgence (NF, coupure coup de poing)</text>
+  <line x1="120" y1="250" x2="120" y2="280" class="wire-safety"/>
+
+  <!-- Sécurité Thermique F2 -->
+  <rect x="105" y="280" width="30" height="30" class="component"/>
+  <text x="110" y="300" class="label">F2</text>
+  <text x="145" y="300" class="label">Relais Thermique Moteur F2 (Contact NF 95-96)</text>
+  <line x1="120" y1="310" x2="120" y2="340" class="wire"/>
+
+  <!-- Sécurité Pression Max Pressostat PS_MAX -->
+  <rect x="105" y="340" width="30" height="30" class="component"/>
+  <text x="108" y="360" class="label">PS1</text>
+  <text x="145" y="360" class="label">Pressostat Sécurité Pression Haute (NF P &lt; 13 bar)</text>
+  <line x1="120" y1="370" x2="120" y2="400" class="wire"/>
+
+  <!-- Sonde Température Klixon TS1 -->
+  <rect x="105" y="400" width="30" height="30" class="component"/>
+  <text x="108" y="420" class="label">TS1</text>
+  <text x="145" y="420" class="label">Thermostat Huile Éléments (NF T &lt; 110°C)</text>
+  <line x1="120" y1="430" x2="120" y2="480" class="wire"/>
+
+  <!-- Bobine Relais Sécurité KA1 -->
+  <rect x="100" y="480" width="40" height="40" class="relay"/>
+  <text x="107" y="505" font-weight="bold" class="label">KA1</text>
+  <text x="145" y="505" class="label">Relais Maître de Sécurité Sécurité OK</text>
+  <line x1="120" y1="520" x2="120" y2="560" class="wire-neutral"/>
+
+  <!-- Ligne 2: Boutons Marche / Arrêt & Maintien -->
+  <line x1="420" y1="130" x2="420" y2="180" class="wire"/>
+  <!-- Contact KA1 -->
+  <line x1="410" y1="180" x2="430" y2="180" class="wire"/>
+  <line x1="410" y1="195" x2="430" y2="195" class="wire"/>
+  <line x1="420" y1="180" x2="420" y2="195" class="wire"/>
+  <text x="440" y="190" class="label">Contact KA1 (Sécurité OK)</text>
+  <line x1="420" y1="195" x2="420" y2="230" class="wire"/>
+
+  <!-- Bouton Arrêt S0 (NF) -->
+  <circle cx="420" cy="245" r="10" fill="#fff" stroke="#d32f2f" stroke-width="1.5"/>
+  <text x="440" y="250" class="label">Bouton Arrêt S0 (NF)</text>
+  <line x1="420" y1="255" x2="420" y2="290" class="wire"/>
+
+  <!-- Bouton Marche S1 (NO) en // avec KM1 maintien -->
+  <line x1="420" y1="290" x2="380" y2="290" class="wire"/>
+  <line x1="420" y1="290" x2="460" y2="290" class="wire"/>
+  <line x1="380" y1="290" x2="380" y2="310" class="wire"/>
+  <circle cx="380" cy="320" r="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5"/>
+  <text x="345" y="345" class="label">S1 (Marche)</text>
+  <line x1="380" y1="330" x2="380" y2="350" class="wire"/>
+
+  <line x1="460" y1="290" x2="460" y2="310" class="wire"/>
+  <rect x="448" y="310" width="24" height="20" class="component"/>
+  <text x="449" y="325" font-size="10" class="label">KM1</text>
+  <text x="480" y="325" class="label">Auto-maintien KM1</text>
+  <line x1="460" y1="330" x2="460" y2="350" class="wire"/>
+
+  <line x1="380" y1="350" x2="460" y2="350" class="wire"/>
+  <line x1="420" y1="350" x2="420" y2="400" class="wire"/>
+
+  <!-- Contact Pressostat Régulation Reg_P -->
+  <rect x="405" y="400" width="30" height="25" class="component"/>
+  <text x="410" y="418" class="label">P_REG</text>
+  <text x="445" y="418" class="label">Pressostat Régulation En Charge / À Vide (7-10 bar)</text>
+  <line x1="420" y1="425" x2="420" y2="480" class="wire"/>
+
+  <!-- Bobine Contacteur Ligne KM1 -->
+  <rect x="400" y="480" width="40" height="40" class="relay"/>
+  <text x="407" y="505" font-weight="bold" class="label">KM1</text>
+  <text x="445" y="505" class="label">Contacteur Principal de Ligne KM1</text>
+  <line x1="420" y1="520" x2="420" y2="560" class="wire-neutral"/>
+
+  <!-- Ligne 3: Temporisateur et Contacteur Étoile KM2 / Triangle KM3 -->
+  <line x1="720" y1="130" x2="720" y2="350" class="wire"/>
+  <line x1="420" y1="350" x2="720" y2="350" class="wire"/>
+  
+  <!-- Relais Temporisé KT1 (0-10s) -->
+  <line x1="660" y1="350" x2="660" y2="480" class="wire"/>
+  <rect x="640" y="480" width="40" height="40" class="relay"/>
+  <text x="647" y="505" font-weight="bold" class="label">KT1</text>
+  <text x="615" y="535" class="label">Temporisateur (6s)</text>
+  <line x1="660" y1="520" x2="660" y2="560" class="wire-neutral"/>
+
+  <!-- Contacteur Étoile KM2 (Démarrage) -->
+  <line x1="760" y1="350" x2="760" y2="390" class="wire"/>
+  <rect x="748" y="390" width="24" height="20" class="component"/>
+  <text x="750" y="405" font-size="9" class="label">KT1_NF</text>
+  <line x1="760" y1="410" x2="760" y2="430" class="wire"/>
+  <rect x="748" y="430" width="24" height="20" class="component"/>
+  <text x="750" y="445" font-size="9" class="label">KM3_NF</text>
+  <text x="780" y="445" class="label">Verrouillage élec.</text>
+  <line x1="760" y1="450" x2="760" y2="480" class="wire"/>
+  <rect x="740" y="480" width="40" height="40" class="relay"/>
+  <text x="747" y="505" font-weight="bold" class="label">KM2</text>
+  <text x="735" y="535" class="label">Contacteur Étoile</text>
+  <line x1="760" y1="520" x2="760" y2="560" class="wire-neutral"/>
+
+  <!-- Contacteur Triangle KM3 (Régime nominal) -->
+  <line x1="860" y1="350" x2="860" y2="390" class="wire"/>
+  <rect x="848" y="390" width="24" height="20" class="component"/>
+  <text x="850" y="405" font-size="9" class="label">KT1_NO</text>
+  <line x1="860" y1="410" x2="860" y2="430" class="wire"/>
+  <rect x="848" y="430" width="24" height="20" class="component"/>
+  <text x="850" y="445" font-size="9" class="label">KM2_NF</text>
+  <text x="880" y="445" class="label">Verrouillage élec.</text>
+  <line x1="860" y1="450" x2="860" y2="480" class="wire"/>
+  <rect x="840" y="480" width="40" height="40" class="relay"/>
+  <text x="847" y="505" font-weight="bold" class="label">KM3</text>
+  <text x="830" y="535" class="label">Contacteur Triangle</text>
+  <line x1="860" y1="520" x2="860" y2="560" class="wire-neutral"/>
+
+  <!-- Footer metadata -->
+  <text x="50" y="615" font-family="Segoe UI" font-size="11" fill="#78909c">Projet MAINTiDOC — Assistant Documentaire Multimodal — Document C09 Schéma Électrique Conforme Norme NF EN 60204-1</text>
+</svg>
